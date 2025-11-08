@@ -28,30 +28,27 @@ export const useDuroodStore = create<DuroodState>()(
       
       checkAndResetDaily: () => {
         const today = getTodayDate();
-        const { lastResetDate, totalCount, dailyTotals, history } = get();
+        const { lastResetDate, totalCount, dailyTotals } = get();
         
         if (today !== lastResetDate) {
-          // Save previous day's total only if there were entries
-          if (totalCount > 0 || history.length > 0) {
-            const updatedDailyTotals = [
-              { date: lastResetDate, total: totalCount },
-              ...dailyTotals
-            ];
-            
-            set({
-              totalCount: 0,
-              lastResetDate: today,
-              dailyTotals: updatedDailyTotals,
-              history: [] // Clear today's history for the new day
-            });
-          } else {
-            set({ lastResetDate: today });
-          }
+          // Save previous day's total to history
+          // This ensures we store data for every day the app was used
+          const updatedDailyTotals = [
+            { date: lastResetDate, total: totalCount },
+            ...dailyTotals
+          ];
+          
+          set({
+            totalCount: 0,
+            lastResetDate: today,
+            dailyTotals: updatedDailyTotals,
+            history: [] // Clear today's history for the new day
+          });
         }
       },
       
       addDurood: (count: number) => {
-        // Check if we need to reset for a new day
+        // Check if we need to reset for a new day (lazy rollover)
         get().checkAndResetDaily();
         
         set((state) => {
@@ -69,6 +66,9 @@ export const useDuroodStore = create<DuroodState>()(
       },
       
       editDurood: (id: string, newCount: number) => {
+        // Check if we need to reset for a new day (lazy rollover)
+        get().checkAndResetDaily();
+        
         set((state) => {
           const entryToUpdate = state.history.find(entry => entry.id === id);
           if (!entryToUpdate) return state;
@@ -94,7 +94,7 @@ export const useDuroodStore = create<DuroodState>()(
     {
       name: 'durood-storage',
       onRehydrateStorage: () => (state) => {
-        // Check if we need to reset when the app loads
+        // Check if we need to reset when the app loads (lazy rollover)
         if (state) {
           state.checkAndResetDaily();
         }
