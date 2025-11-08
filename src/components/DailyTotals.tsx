@@ -1,4 +1,4 @@
-import React from 'react';
+import type { FC } from 'react';
 import type { DailyTotal } from '../types';
 import { formatDailyTotalDate } from '../utils/dateFormatter';
 
@@ -7,7 +7,7 @@ interface DailyTotalsProps {
   totalCount: number;
 }
 
-const DailyTotals: React.FC<DailyTotalsProps> = ({ dailyTotals, totalCount }) => {
+const DailyTotals: FC<DailyTotalsProps> = ({ dailyTotals, totalCount }) => {
   const getTodayDate = (): string => {
     const today = new Date();
     return today.toISOString().split('T')[0]; // YYYY-MM-DD format

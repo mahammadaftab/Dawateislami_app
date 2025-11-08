@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import InputModule from './components/InputModule';
 import HistoryLog from './components/HistoryLog';
@@ -8,7 +8,7 @@ import Navbar from './components/Navbar';
 import { useDuroodStore } from './hooks/useDuroodStore';
 
 const App = () => {
-  const { totalCount, history, dailyTotals, addDurood, editDurood, checkAndResetDaily } = useDuroodStore();
+  const { totalCount, history, addDurood, editDurood, checkAndResetDaily } = useDuroodStore();
   
   // Check for daily reset when the app loads
   useEffect(() => {

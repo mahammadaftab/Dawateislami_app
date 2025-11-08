@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { DuroodEntry } from '../types';
 import { formatDuroodTimestamp } from '../utils/dateFormatter';
 

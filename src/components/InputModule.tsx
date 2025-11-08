@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 interface InputModuleProps {
   onAdd: (count: number) => void;
@@ -75,11 +75,11 @@ const InputModule: React.FC<InputModuleProps> = ({ onAdd }) => {
       <div className="border-t border-gray-200 pt-6 animate-slideInLeft animation-delay-200">
         <h3 className="text-lg font-medium text-gray-700 mb-3">Quick Add</h3>
         <div className="flex flex-wrap gap-3">
-          {[1, 10, 50, 100, 500, 1000].map((amount, index) => (
+          {[1, 10, 50, 100, 500, 1000].map((amount) => (
             <button
               key={amount}
               onClick={() => quickAdd(amount)}
-              className="px-4 py-2 bg-gray-100 hover:bg-indigo-100 text-gray-800 hover:text-indigo-700 font-medium rounded-lg transition-all-medium transform hover:scale-105 animation-delay-{index * 50}"
+              className="px-4 py-2 bg-gray-100 hover:bg-indigo-100 text-gray-800 hover:text-indigo-700 font-medium rounded-lg transition-all-medium transform hover:scale-105"
             >
               +{amount}
             </button>
