@@ -8,7 +8,7 @@ import Navbar from './components/Navbar';
 import { useDuroodStore } from './hooks/useDuroodStore';
 
 const App = () => {
-  const { totalCount, lifetimeTotal, history, addDurood, editDurood, checkAndResetDaily, reset } = useDuroodStore();
+  const { totalCount, lifetimeTotal, history, addDurood, editDurood, checkAndResetDaily } = useDuroodStore();
   
   // Check for daily reset when the app loads
   useEffect(() => {
