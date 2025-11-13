@@ -40,7 +40,7 @@ const App = () => {
                 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <div className="lg:col-span-2 animate-slideInLeft animation-delay-100">
-                    <TotalCounter totalCount={totalCount} onAdd={addDurood} onReset={reset} />
+                    <TotalCounter onAdd={addDurood} />
                     <InputModule onAdd={addDurood} />
                   </div>
                   

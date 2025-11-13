@@ -14,11 +14,6 @@ interface DuroodState {
   checkAndResetDaily: () => void;
 }
 
-const getTodayDate = (): string => {
-  const today = new Date();
-  return today.toISOString().split('T')[0]; // YYYY-MM-DD format
-};
-
 // Get the last reset date based on Indian time (6:00 AM IST)
 const getLastResetDate = (): string => {
   const now = new Date();

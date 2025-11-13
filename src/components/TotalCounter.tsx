@@ -3,12 +3,10 @@ import { format } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 
 interface TotalCounterProps {
-  totalCount: number;
   onAdd: (count: number) => void;
-  onReset: () => void;
 }
 
-const TotalCounter: React.FC<TotalCounterProps> = ({ totalCount, onAdd, onReset }) => {
+const TotalCounter: React.FC<TotalCounterProps> = ({ onAdd }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [tapCount, setTapCount] = useState(0);
   const [isTapped, setIsTapped] = useState(false);
@@ -52,10 +50,9 @@ const TotalCounter: React.FC<TotalCounterProps> = ({ totalCount, onAdd, onReset 
 
   const handleReset = () => {
     setTapCount(0);
-    // Only reset the tap counter, not the main counters
   };
 
-  // Display only the tap count, not the main totalCount
+  // Display only the tap count
   const displayCount = tapCount;
 
   return (
