@@ -8,7 +8,7 @@ import Navbar from './components/Navbar';
 import { useDuroodStore } from './hooks/useDuroodStore';
 
 const App = () => {
-  const { totalCount, history, addDurood, editDurood, checkAndResetDaily } = useDuroodStore();
+  const { totalCount, lifetimeTotal, history, addDurood, editDurood, checkAndResetDaily, reset } = useDuroodStore();
   
   // Check for daily reset when the app loads
   useEffect(() => {
@@ -40,7 +40,7 @@ const App = () => {
                 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <div className="lg:col-span-2 animate-slideInLeft animation-delay-100">
-                    <TotalCounter totalCount={totalCount} />
+                    <TotalCounter totalCount={totalCount} onAdd={addDurood} onReset={reset} />
                     <InputModule onAdd={addDurood} />
                   </div>
                   
@@ -75,11 +75,14 @@ const App = () => {
                         <div className="mt-4 w-full bg-gray-200 rounded-full h-2.5">
                           <div 
                             className="bg-green-600 h-2.5 rounded-full transition-all-medium" 
-                            style={{ width: `${Math.min(100, (totalCount / 15000000000) * 100)}%` }}
+                            style={{ width: `${Math.min(100, (lifetimeTotal / 15000000000) * 100)}%` }}
                           ></div>
                         </div>
                         <p className="text-sm text-gray-500 mt-2">
-                          {((totalCount / 15000000000) * 100).toFixed(6)}% of target achieved
+                          {((lifetimeTotal / 15000000000) * 100).toFixed(6)}% of lifetime goal achieved
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">
+                          Lifetime Total: {lifetimeTotal.toLocaleString()}
                         </p>
                       </div>
                     </div>

@@ -4,6 +4,7 @@ import type { DuroodEntry, DailyTotal } from '../types';
 
 interface DuroodState {
   totalCount: number;
+  lifetimeTotal: number;
   history: DuroodEntry[];
   dailyTotals: DailyTotal[];
   lastResetDate: string;
@@ -18,19 +19,43 @@ const getTodayDate = (): string => {
   return today.toISOString().split('T')[0]; // YYYY-MM-DD format
 };
 
+// Get the last reset date based on Indian time (6:00 AM IST)
+const getLastResetDate = (): string => {
+  const now = new Date();
+  // Convert to Indian time (UTC+5:30)
+  const istTime = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
+  
+  // If current IST time is before 6:00 AM, consider previous day as last reset date
+  if (istTime.getHours() < 6) {
+    const yesterday = new Date(istTime);
+    yesterday.setDate(yesterday.getDate() - 1);
+    return yesterday.toISOString().split('T')[0];
+  }
+  
+  return istTime.toISOString().split('T')[0];
+};
+
+// Check if we should reset based on Indian time (6:00 AM IST)
+const shouldReset = (lastResetDate: string): boolean => {
+  const today = getLastResetDate();
+  return today !== lastResetDate;
+};
+
 export const useDuroodStore = create<DuroodState>()(
   persist(
     (set, get) => ({
       totalCount: 0,
+      lifetimeTotal: 0,
       history: [],
       dailyTotals: [],
-      lastResetDate: getTodayDate(),
+      lastResetDate: getLastResetDate(),
       
       checkAndResetDaily: () => {
-        const today = getTodayDate();
         const { lastResetDate, totalCount, dailyTotals } = get();
         
-        if (today !== lastResetDate) {
+        if (shouldReset(lastResetDate)) {
+          const today = getLastResetDate();
+          
           // Save previous day's total to history
           // This ensures we store data for every day the app was used
           const updatedDailyTotals = [
@@ -60,6 +85,7 @@ export const useDuroodStore = create<DuroodState>()(
           
           return {
             totalCount: state.totalCount + count,
+            lifetimeTotal: state.lifetimeTotal + count,
             history: [newEntry, ...state.history],
           };
         });
@@ -84,12 +110,19 @@ export const useDuroodStore = create<DuroodState>()(
           
           return {
             totalCount: state.totalCount + countDifference,
+            lifetimeTotal: state.lifetimeTotal + countDifference,
             history: updatedHistory,
           };
         });
       },
       
-      reset: () => set({ totalCount: 0, history: [], dailyTotals: [], lastResetDate: getTodayDate() }),
+      reset: () => set({ 
+        totalCount: 0, 
+        history: [], 
+        dailyTotals: [], 
+        lastResetDate: getLastResetDate(),
+        // Note: We don't reset lifetimeTotal here as it's a lifetime counter
+      }),
     }),
     {
       name: 'durood-storage',
