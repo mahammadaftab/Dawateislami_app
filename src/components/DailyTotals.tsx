@@ -37,7 +37,7 @@ const DailyTotals: FC<DailyTotalsProps> = ({ dailyTotals, totalCount }) => {
             </svg>
           </div>
           <h3 className="text-lg font-medium text-gray-900 mb-1">No daily history recorded</h3>
-          <p className="text-gray-500">Your daily durood counts will appear here</p>
+          <p className="text-gray-500">Your daily durood counts will appear here as you track your spiritual journey</p>
         </div>
       ) : (
         <div className="overflow-hidden">

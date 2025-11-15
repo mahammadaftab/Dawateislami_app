@@ -53,9 +53,9 @@ const Navbar: React.FC = () => {
             </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:block animate-slideInRight">
-            <div className="ml-10 flex items-center space-x-1">
+          {/* Desktop Navigation - Centered */}
+          <div className="hidden md:flex md:items-center md:justify-center md:flex-grow animate-slideInRight">
+            <div className="flex items-center space-x-1">
               {navItems.map((item, index) => (
                 <NavLink
                   key={item.name}

@@ -36,13 +36,13 @@ const InputModule: React.FC<InputModuleProps> = ({ onAdd }) => {
     <div className="mb-8 p-6 bg-white rounded-2xl shadow-xl border border-gray-100 hover-lift animate-scaleIn">
       <div className="mb-6 animate-slideInLeft">
         <h2 className="text-xl font-bold text-gray-800 mb-2">Add Durood Count</h2>
-        <p className="text-gray-600">Enter the number of Durood you've recited or use quick buttons</p>
+        <p className="text-gray-600">Enter the number of Duroods you've recited or use quick buttons</p>
       </div>
       
       <div className="flex flex-col sm:flex-row gap-4 items-center mb-6 animate-slideInLeft animation-delay-100">
         <div className="flex-grow w-full">
           <label htmlFor="durood-count" className="block text-lg font-medium text-gray-700 mb-2">
-            Number of Durood
+            Number of Duroods
           </label>
           <div className="relative">
             <input
@@ -51,7 +51,7 @@ const InputModule: React.FC<InputModuleProps> = ({ onAdd }) => {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Enter a positive number"
+              placeholder="e.g., 100"
               className="w-full px-4 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all-medium"
               min="1"
             />

@@ -51,7 +51,7 @@ const HistoryLog: React.FC<HistoryLogProps> = ({ history, onEdit }) => {
               </svg>
             </div>
             <h3 className="text-lg font-medium text-gray-900 mb-1">No durood entries yet</h3>
-            <p className="text-gray-500">Add your first durood using the input above!</p>
+            <p className="text-gray-500">Add your first duroods using the input above to track your spiritual journey</p>
           </div>
         ) : (
           <ul className="divide-y divide-gray-200">
