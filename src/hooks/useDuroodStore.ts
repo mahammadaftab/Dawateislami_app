@@ -10,7 +10,6 @@ interface DuroodState {
   lastResetDate: string;
   addDurood: (count: number) => void;
   editDurood: (id: string, newCount: number) => void;
-  reset: () => void;
   checkAndResetDaily: () => void;
 }
 
@@ -110,14 +109,6 @@ export const useDuroodStore = create<DuroodState>()(
           };
         });
       },
-      
-      reset: () => set({ 
-        totalCount: 0, 
-        history: [], 
-        dailyTotals: [], 
-        lastResetDate: getLastResetDate(),
-        // Note: We don't reset lifetimeTotal here as it's a lifetime counter
-      }),
     }),
     {
       name: 'durood-storage',
